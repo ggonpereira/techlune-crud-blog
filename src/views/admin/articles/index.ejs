@@ -1,0 +1,102 @@
+<%- include("../../includes/head") %> <%- include("../../includes/nav") %>
+
+<div class="container my-5">
+  <a href="/admin/articles/new" class="btn btn-md btn-primary"
+    >Create article</a
+  >
+  <a href="/admin/categories/new" class="btn btn-md btn-primary"
+    >Create category</a
+  >
+  <hr />
+
+  <div class="card">
+    <div class="card-header">
+      <h3>Articles</h3>
+    </div>
+    <div class="card-body">
+      <% if (articles.length !== 0) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Slug</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% articles.forEach((article) => { %>
+          <tr>
+            <td><%= article.id %></td>
+            <td><%= article.title %></td>
+            <td><%= article.slug %></td>
+            <td><%= article.category.title %></td>
+            <td class="buttons">
+              <form
+                method="POST"
+                action="/admin/articles/delete/<%= article.id %>"
+                class="deleteForm"
+              >
+                <input
+                  type="image"
+                  src="/assets/img/delete-button.svg"
+                  border="0"
+                  class="catButtons deleteButton"
+                  alt="Delete Article"
+                />
+              </form>
+              <a href="/admin/articles/edit/<%= article.id %>"
+                ><img
+                  src="/assets/img/edit-button.svg"
+                  class="catButtons editButton"
+                  alt="Edit Article"
+              /></a>
+            </td>
+          </tr>
+
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <h5>No articles added so far :(</h5>
+      <% }; %>
+    </div>
+  </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script defer>
+  (() => {
+    if (document.querySelector("form.deleteForm")) {
+      const deleteForm = document.querySelectorAll("form.deleteForm");
+
+      deleteForm.forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.submit();
+              Swal.fire(
+                "Deleted!",
+                "Your article has been deleted.",
+                "success"
+              );
+            }
+          });
+        });
+      });
+    }
+  })();
+</script>
+
+<%- include("../../includes/footer") %>

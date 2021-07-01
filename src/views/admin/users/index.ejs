@@ -1,0 +1,96 @@
+<%- include("../../includes/head") %> <%- include("../../includes/nav") %>
+
+<div class="container my-5">
+  <a href="/admin/users/register" class="btn btn-md btn-primary"
+    >Register new user</a
+  >
+  <a href="/login" class="btn btn-md btn-primary">Login</a>
+  <hr />
+
+  <div class="card">
+    <div class="card-header">
+      <h3>Users</h3>
+    </div>
+    <div class="card-body">
+      <% if (users.length !== 0) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% users.forEach((user) => { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.firstName %></td>
+            <td><%= user.lastName %></td>
+            <td><%= user.email %></td>
+            <td class="buttons">
+              <form
+                method="POST"
+                action="/admin/users/delete/<%= user.id %>"
+                class="deleteForm"
+              >
+                <input
+                  type="image"
+                  src="/assets/img/delete-button.svg"
+                  border="0"
+                  class="catButtons deleteButton"
+                  alt="Delete User"
+                />
+              </form>
+              <a href="/admin/users/edit/<%= user.id %>"
+                ><img
+                  src="/assets/img/edit-button.svg"
+                  class="catButtons editButton"
+                  alt="Edit User"
+              /></a>
+            </td>
+          </tr>
+
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <h5>No users added so far :(</h5>
+      <% }; %>
+    </div>
+  </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script defer>
+  (() => {
+    if (document.querySelector("form.deleteForm")) {
+      const deleteForm = document.querySelectorAll("form.deleteForm");
+
+      deleteForm.forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.submit();
+              Swal.fire("Deleted!", "Your user has been deleted.", "success");
+            }
+          });
+        });
+      });
+    }
+  })();
+</script>
+
+<%- include("../../includes/footer") %>

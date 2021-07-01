@@ -1,0 +1,77 @@
+.navbar-brand {
+  width: 120px;
+}
+
+div#navbarSupportedContent {
+  justify-content: flex-end;
+}
+
+ul.navbar-nav .nav-link {
+  text-transform: uppercase;
+  color: #ececec;
+  font-weight: 500;
+}
+
+ul.navbar-nav .nav-link:hover {
+  color: #fff;
+}
+
+.row {
+  --bs-gutter-x: 0;
+}
+
+.cssBox {
+  margin: 10px;
+  flex-basis: calc(33% - 17px);
+}
+
+.buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.catButtons {
+  width: 32px;
+}
+
+.row {
+  --bs-gutter-x: 0;
+}
+
+.cssBox {
+  margin: 10px;
+  flex-basis: calc(33% - 17px);
+}
+
+.jumbotron {
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+  background-color: var(--bs-light);
+  border-radius: 0.3rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 992px) {
+  .cssBox {
+    margin: 10px;
+    flex-basis: calc(50% - 20px);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .cssBox {
+    margin: 10px 0;
+    flex-basis: 100%;
+  }
+}

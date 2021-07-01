@@ -1,0 +1,21 @@
+<%- include("../../includes/head") %> <%- include("../../includes/nav") %>
+
+<div class="container my-5">
+  <div class="card">
+    <div class="card-header">
+      <h3>Create new categorie</h3>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="/admin/categories/save" class="form">
+        <div class="mb-3">
+          <label for="title">Categorie title</label>
+          <input name="title" id="title" type="text" class="form-control" />
+        </div>
+
+        <button class="col-12 btn-lg btn btn-success">Register</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include("../../includes/footer") %>

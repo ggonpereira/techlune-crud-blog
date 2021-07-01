@@ -1,0 +1,66 @@
+<%- include("../../includes/head") %>
+
+<div class="container">
+  <% if (message !== undefined) { %>
+  <div class="alert alert-danger mt-5" role="alert">
+    <h4 style="margin-top: 0; margin-bottom: 0"><%= message %></h4>
+  </div>
+
+  <% } %>
+  <div class="card my-5">
+    <div class="card-header"><h1>User registration</h1></div>
+    <div class="card-body">
+      <form method="POST" action="/admin/users/register/create">
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            class="form-control"
+            id="firstName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            class="form-control"
+            id="lastName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+          />
+          <div id="emailHelp" class="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            id="password"
+          />
+        </div>
+        <div class="mb-3">
+          Already have an account? <a href="/login">Sign in</a> instead!
+        </div>
+        <div class="form-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a href="/">Return to homepage</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include("../../includes/footer") %>

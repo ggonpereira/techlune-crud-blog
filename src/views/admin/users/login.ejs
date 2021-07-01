@@ -1,0 +1,51 @@
+<%- include("../../includes/head") %>
+<div class="container">
+  <div class="alert alert-danger mt-5 d-none" id="loginAlert" role="alert">
+    <h4 style="margin-top: 0; margin-bottom: 0">
+      No accounts found with this email or password
+    </h4>
+  </div>
+  <script>
+    const msgArea = document.getElementById("loginAlert");
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get("e");
+    if (myParam == "incorrect_credential") {
+      msgArea.classList.remove("d-none");
+    }
+  </script>
+  <div class="card my-5">
+    <div class="card-header"><h1>User login</h1></div>
+    <div class="card-body">
+      <form method="POST" action="/login/check">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            id="password"
+          />
+        </div>
+        <div class="mb-3">
+          Don't have an account yet? <a href="/register">Sign up</a> right now!
+        </div>
+        <div class="form-footer">
+          <button type="submit" class="btn btn-primary">Login</button>
+          <a href="/">Return to homepage</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include("../../includes/footer") %>

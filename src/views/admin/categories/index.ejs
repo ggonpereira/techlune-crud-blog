@@ -1,0 +1,144 @@
+<%- include("../../includes/head") %> <%- include("../../includes/nav") %>
+
+<div class="container my-5">
+  <a href="/admin/categories/new" class="btn btn-md btn-primary"
+    >Create categorie</a
+  >
+  <a href="/admin/articles/new" class="btn btn-md btn-primary"
+    >Create article</a
+  >
+  <hr />
+
+  <div class="card">
+    <div class="card-header">
+      <h3>Categories</h3>
+    </div>
+    <div class="card-body">
+      <% if (categories.length !== 0) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Slug</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% categories.forEach((categorie) => { %>
+          <tr>
+            <td><%= categorie.id %></td>
+            <td><%= categorie.title %></td>
+            <td><%= categorie.slug %></td>
+            <td class="buttons">
+              <form
+                method="POST"
+                action="/admin/categories/delete/<%= categorie.id %>"
+                class="deleteForm"
+              >
+                <input
+                  type="image"
+                  src="/assets/img/delete-button.svg"
+                  border="0"
+                  class="catButtons deleteButton"
+                  alt="Delete Category"
+                />
+              </form>
+              <a
+                href="/admin/categories/edit/<%= categorie.id %>"
+                data-bs-toggle="modal"
+                data-bs-target="#editCategorie<%= categorie.id %>"
+                ><img
+                  src="/assets/img/edit-button.svg"
+                  class="catButtons editButton"
+                  alt="Edit Category"
+              /></a>
+            </td>
+          </tr>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="editCategorie<%= categorie.id %>"
+            tabindex="-1"
+            aria-labelledby="editCategorieLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editCategorieLabel">
+                    Edit categorie "<%= categorie.title %>"
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form
+                    method="POST"
+                    action="/admin/categories/edit/<%= categorie.id %>"
+                    class="form"
+                  >
+                    <div class="mb-3">
+                      <label>New title</label>
+                      <input name="newTitle" type="text" class="form-control" />
+                    </div>
+
+                    <button class="col-12 btn-lg btn btn-success">
+                      Save modifications
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <h5>No categories added so far :(</h5>
+      <% }; %>
+    </div>
+  </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script defer>
+  (() => {
+    if (document.querySelector("form.deleteForm")) {
+      const deleteForm = document.querySelectorAll("form.deleteForm");
+
+      deleteForm.forEach((form) => {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.submit();
+              Swal.fire(
+                "Deleted!",
+                "Your category has been deleted.",
+                "success"
+              );
+            }
+          });
+        });
+      });
+    }
+  })();
+</script>
+
+<%- include("../../includes/footer") %>
